@@ -20,6 +20,6 @@ test('Add Item To Cart', async ({ page }) => {
   // Проверка видимости корзины
   await expect(productsPage.cartWithItems).toBeVisible({ timeout: 10000 })
   console.log(
-    'товар добавлен, но название кнопки конкретное, надо обобзенное сделать',
+    'товар добавлен, но название кнопки конкретное, надо обобщенное сделать',
   )
 })
