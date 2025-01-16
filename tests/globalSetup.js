@@ -1,25 +1,17 @@
-import { chromium } from '@playwright/test'
-import { testUsers } from '../data/userData'
-import path from 'node:path'
-import fs from 'fs'
+// @ts-check
+const { chromium } = require('@playwright/test')
+const { testUsers } = require('../data/userData.js')
+const path = require('path')
+const fs = require('fs')
 
 const storageState = path.resolve('./auth/auth-storage.json')
-console.log(`Storage state will be saved to: ${storageState}`)
 
 async function globalSetup() {
-  const dir = path.dirname(storageState)
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
-    console.log(`Directory created: ${dir}`)
-  } else {
-    console.log(`Directory already exists: ${dir}`)
-  }
-
   const browser = await chromium.launch()
   const context = await browser.newContext()
   const page = await context.newPage()
 
-  const { email, password } = testUsers.standartUser
+  const { email, password } = testUsers.standardUser
 
   await page.goto('https://www.saucedemo.com')
   console.log('Страница загружена')
@@ -34,7 +26,7 @@ async function globalSetup() {
 
   // Сохранение состояния в файл
   console.log(`Attempting to save storage state to: ${storageState}`)
-  await context.storageState({ path: storageState })
+  await page.context().storageState({ path: storageState })
   console.log(`Storage state saved successfully to: ${storageState}`)
 
   console.log(`Сохранено состояние авторизации для пользователя ${email}`)
@@ -42,4 +34,6 @@ async function globalSetup() {
   await browser.close()
 }
 
-export default globalSetup
+console.log('File exists:', fs.existsSync(storageState))
+
+module.exports = globalSetup // Используй module.exports вместо export default

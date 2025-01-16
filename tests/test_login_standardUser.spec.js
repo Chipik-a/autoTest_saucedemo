@@ -4,7 +4,7 @@ import { testUsers } from '../data/userData'
 
 test('log In', async ({ page }) => {
   const homePage = new HomePage(page)
-  const { email, password } = testUsers.standartUser
+  const { email, password } = testUsers.standardUser
 
   await homePage.goto('/')
   await homePage.login(email, password)
@@ -12,6 +12,6 @@ test('log In', async ({ page }) => {
   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
 
   console.log(
-    `User with email ${testUsers.standartUser.email} and password ${testUsers.standartUser.password} was logged in`,
+    `User with email ${testUsers.standardUser.email} and password ${testUsers.standardUser.password} was logged in`,
   )
 })

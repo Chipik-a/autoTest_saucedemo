@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const testUsers = {
-  standartUser: {
+  standardUser: {
     email: process.env.EMAIL_STANDART,
     password: process.env.PASSWORD_STANDART,
   },
