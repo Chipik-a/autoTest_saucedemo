@@ -11,7 +11,6 @@ test('Add Item To Cart', async ({ page }) => {
   // Добавляем cookies из storageState
   await page.context().addCookies(storageState.cookies)
 
-  // Переход на страницу с товарами
   const productsPage = new ProductsPage(page)
   await productsPage.goto('https://www.saucedemo.com/inventory.html')
 

@@ -1,7 +1,8 @@
 export class ProductsPage {
   constructor(page) {
     this.page = page
-    this.itemTitle = page.locator('[data-test="item_4_title_link"]')
+    this.itemTitle = page.locator('.inventory_item_name')
+    //this.itemTitle = page.locator('[data-test="item_4_title_link"]')
     this.sortContainer = page.locator('[data-test="product-sort-container"]')
     this.itemPrice = page.locator('.inventory_item_price ').first()
     this.buttonAddToCart = page.locator(
@@ -24,7 +25,7 @@ export class ProductsPage {
     await this.sortContainer.selectOption({ value: order })
   }
 
-  // async sortByName(order='za'){
-  //   await this.sortContainer.selectOption({value: order})
-  // }
+  async getProductNames() {
+    return await this.itemTitle.allTextContents()
+  }
 }
