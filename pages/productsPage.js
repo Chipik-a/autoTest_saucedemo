@@ -17,30 +17,30 @@ export class ProductsPage {
   }
 
   async addMultipleItemsToCart(indices) {
+    const buttonCount = await this.buttonAddToCart.count()
+    console.log(`Number of buttons found: ${buttonCount}`)
+
     for (const index of indices) {
       const button = this.buttonAddToCart.nth(index)
-      await button.scrollIntoViewIfNeeded()
+      console.log(`Trying to interact with button at index: ${index}`)
 
-      // Ждем, пока кнопка не станет видимой
-      await button.waitFor({ state: 'visible' })
+      try {
+        const isVisible = await button.isVisible()
 
-      // Кликаем по кнопке
-      await button.click()
-
-      // const isButtonVisible = await button.isVisible();
-      // if (!isButtonVisible) {
-      //   await page.evaluate(() => window.scrollBy(0, -window.innerHeight)); // Прокрутка вверх
-      //   await button.scrollIntoViewIfNeeded();
-      //   await button.waitFor({ state: 'visible' });
-      //   await button.click();
-      // }
-
-      //await this.page.evaluate(() => window.scrollBy(0, window.innerHeight));
-
-      // await this.buttonAddToCart.nth(index).scrollIntoViewIfNeeded()
-      // await this.buttonAddToCart.nth(index).waitFor({ state: 'visible' });
-      //
-      // await this.buttonAddToCart.nth(index).click()
+        if (isVisible) {
+          console.log(
+            `Button at index ${index} is visible, attempting to click...`,
+          )
+          await button.click()
+          console.log(`Successfully clicked button at index: ${index}`)
+        } else {
+          console.warn(`Button at index ${index} is not visible`)
+        }
+      } catch (error) {
+        console.error(
+          `Failed to interact with button at index ${index}: ${error.message}`,
+        )
+      }
     }
   }
 
