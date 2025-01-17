@@ -1,6 +1,4 @@
-// import { defineConfig, devices } from '@playwright/test';
 const path = require('path')
-//const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = {
   testDir: './tests',
@@ -16,15 +14,15 @@ module.exports = {
     trace: 'on-first-retry',
   },
 
-  // Настройка глобального setup для авторизации
-  //globalSetup: path.resolve(__dirname, './tests/globalSetup.js'),
-
-  // Множество проектов с настройками для разных браузеров
   projects: [
     {
       name: 'loggedState',
       globalSetup: path.resolve('./tests/globalSetup.js'),
-      testMatch: ['/addToCart_*\\.spec\\.js/', '/SortByName_*\\.spec\\.js/'],
+      testMatch: [
+        /.*addToCart_standardUser.*\.spec\.js$/,
+        /.*sortByName_standardUser.*\.spec\.js$/,
+        /.*loginSaveState.*\.spec\.js$/,
+      ],
       use: {
         baseURL: 'https://www.saucedemo.com/',
         storageState: path.resolve(__dirname, './auth/auth-storage.json'), // Путь для loggedState
@@ -32,8 +30,10 @@ module.exports = {
     },
     {
       name: 'noAuth',
-      testMatch: ['/login_*\\.spec\\.js/', '**/*.spec.js'],
-      testIgnore: ['/addToCart_*\\.spec\\.js/', '/SortByName_*\\.spec\\.js/'],
+      testMatch: [
+        /.*login_lockedUser.*\.spec\.js$/,
+        /.*login_standardUser.*\.spec\.js$/,
+      ],
       use: {
         baseURL: 'https://www.saucedemo.com/',
       },

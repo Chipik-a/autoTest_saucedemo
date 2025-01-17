@@ -3,7 +3,7 @@ import { HomePage } from '../pages/homePage'
 import { testUsers } from '../data/userData'
 import path from 'node:path'
 
-test('log In and save state', async ({ page }) => {
+test('logIn and save state', async ({ page }) => {
   const homePage = new HomePage(page)
   const { email, password } = testUsers.standardUser
 
@@ -16,5 +16,4 @@ test('log In and save state', async ({ page }) => {
 
   await page.context().storageState({ path: storageStatePath })
   console.log(`Storage state saved to: ${storageStatePath}`)
-  // await page.context().storageState({ path: './auth/auth-storage.json' })
 })

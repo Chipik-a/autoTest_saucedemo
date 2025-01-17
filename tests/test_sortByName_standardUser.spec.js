@@ -2,11 +2,6 @@ import { expect, test } from '@playwright/test'
 import { ProductsPage } from '../pages/productsPage'
 
 test('Sort items by name Z-A', async ({ page }) => {
-  // const storageStatePath = path.resolve('./auth/auth-storage.json')
-  // const storageState = JSON.parse(fs.readFileSync(storageStatePath, 'utf-8'))
-  //
-  // await page.context().addCookies(storageState.cookies)
-
   const productsPage = new ProductsPage(page)
   await productsPage.goto('https://www.saucedemo.com/inventory.html')
 

@@ -5,7 +5,6 @@ export class ProductsPage {
     this.sortContainer = page.locator('[data-test="product-sort-container"]')
     this.itemPrice = page.locator('.inventory_item_price ')
     this.buttonAddToCart = page.getByRole('button', { name: 'Add to cart' })
-    // this.buttonAddToCart = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]')
     this.cartWithItems = page.locator('.shopping_cart_badge')
   }
 
@@ -17,19 +16,33 @@ export class ProductsPage {
     await this.buttonAddToCart.nth(index).click()
   }
 
-  //   async addToCartByIndex(index) {
-  //     // Проверяем, есть ли кнопки "Add to cart"
-  //     const count = await this.buttonAddToCart.count();
-  //     if (index >= count) {
-  //       throw new Error(`Индекс ${index} выходит за пределы доступных кнопок: ${count}`);
-  //     }
-  //     await this.buttonAddToCart.nth(index).click();
-  //   }
-  // }
+  async addMultipleItemsToCart(indices) {
+    for (const index of indices) {
+      const button = this.buttonAddToCart.nth(index)
+      await button.scrollIntoViewIfNeeded()
 
-  // async addItemToCart() {
-  // await this.buttonAddToCart.click()
-  // }
+      // Ждем, пока кнопка не станет видимой
+      await button.waitFor({ state: 'visible' })
+
+      // Кликаем по кнопке
+      await button.click()
+
+      // const isButtonVisible = await button.isVisible();
+      // if (!isButtonVisible) {
+      //   await page.evaluate(() => window.scrollBy(0, -window.innerHeight)); // Прокрутка вверх
+      //   await button.scrollIntoViewIfNeeded();
+      //   await button.waitFor({ state: 'visible' });
+      //   await button.click();
+      // }
+
+      //await this.page.evaluate(() => window.scrollBy(0, window.innerHeight));
+
+      // await this.buttonAddToCart.nth(index).scrollIntoViewIfNeeded()
+      // await this.buttonAddToCart.nth(index).waitFor({ state: 'visible' });
+      //
+      // await this.buttonAddToCart.nth(index).click()
+    }
+  }
 
   async sortByName(order = 'za') {
     await this.sortContainer.waitFor({ state: 'visible' })
