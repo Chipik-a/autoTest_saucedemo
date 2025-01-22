@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["node_modules/@playwright/test/types/**/*.d.ts", "./**/*.js"]
+}

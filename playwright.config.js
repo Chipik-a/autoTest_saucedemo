@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs');
 
 module.exports = {
   testDir: './tests',
@@ -7,10 +8,12 @@ module.exports = {
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  env: {
+    browser: true,
+    node: true,
+  },
   use: {
     baseURL: 'https://www.saucedemo.com/',
-    // Используем абсолютный путь
-    storageState: path.resolve(__dirname, './auth/auth-storage.json'),
     trace: 'on-first-retry',
   },
 
@@ -21,11 +24,32 @@ module.exports = {
       testMatch: [
         /.*addToCart_standardUser.*\.spec\.js$/,
         /.*sortByName_standardUser.*\.spec\.js$/,
+        /.*addRemoveItems_standardUser.*\.spec\.js$/,
         /.*loginSaveState.*\.spec\.js$/,
       ],
       use: {
         baseURL: 'https://www.saucedemo.com/',
-        storageState: path.resolve(__dirname, './auth/auth-storage.json'), // Путь для loggedState
+        storageState: path.resolve(__dirname, './auth/auth-storage.json'),
+      },
+    },
+    {
+      name: 'cartWithItem',
+      globalSetup: path.resolve(__dirname, './tests/globalSetup.js'),
+      testMatch: [
+        /.*cartWithItemsSaveState\.spec\.js$/,   // Этот тест создает сохраненное состояние
+      ],
+      use: {
+        // Не указываем storageState, так как cartWithItemsSaveState должен создать файл
+      },
+    },
+    {
+      name: 'cartWithSavedState', // Проект для тестов, которые используют сохраненное состояние
+      globalSetup: path.resolve(__dirname, './tests/globalSetup.js'),
+      testMatch: [
+        /.*removeItems_visualUser.*\.spec\.js$/,
+      ],
+      use: {
+        storageState: './auth/cart-storage.json',
       },
     },
     {

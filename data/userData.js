@@ -10,4 +10,8 @@ export const testUsers = {
     email: process.env.EMAIL_LOCKED,
     password: process.env.PASSWORD_LOCKED,
   },
+  visualUser: {
+    email: process.env.EMAIL_VISUAL,
+    password: process.env.PASSWORD_VISUAL
+  }
 }
