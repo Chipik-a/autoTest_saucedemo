@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 export default class ProductsPage {
   constructor(page) {
     this.page = page
@@ -13,9 +11,7 @@ export default class ProductsPage {
 
   async scrollToTop() {
     await this.page.waitForLoadState('domcontentloaded')
-    await this.page.evaluate(() => {
-      window.scrollTo(0, 0)
-    })
+    await this.page.locator('body').evaluate((el) => el.scrollTo(0, 0))
   }
 
   async goto(url) {
@@ -70,4 +66,3 @@ export default class ProductsPage {
     return await this.itemTitle.allTextContents()
   }
 }
-module.exports = ProductsPage
