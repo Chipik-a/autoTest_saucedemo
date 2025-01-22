@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 export default class ProductsPage {
   constructor(page) {
     this.page = page
@@ -6,14 +8,14 @@ export default class ProductsPage {
     this.itemPrice = page.locator('.inventory_item_price ')
     this.buttonAddToCart = page.getByRole('button', { name: 'Add to cart' })
     this.cartWithItems = page.locator('.shopping_cart_badge')
-    this.removeFromCart = page.getByRole('button', {name: 'Remove'}).nth(1)
+    this.removeFromCart = page.getByRole('button', { name: 'Remove' }).nth(1)
   }
 
   async scrollToTop() {
     await this.page.waitForLoadState('domcontentloaded')
     await this.page.evaluate(() => {
-      window.scrollTo(0, 0);
-    });
+      window.scrollTo(0, 0)
+    })
   }
 
   async goto(url) {
@@ -21,12 +23,12 @@ export default class ProductsPage {
   }
 
   async addToCartByIndex(index) {
-    const button = this.buttonAddToCart.nth(index);
-    await this.scrollToTop();
-    await button.scrollIntoViewIfNeeded();
+    const button = this.buttonAddToCart.nth(index)
+    await this.scrollToTop()
+    await button.scrollIntoViewIfNeeded()
 
-    await button.waitFor({ state: 'visible' });
-    await button.click();
+    await button.waitFor({ state: 'visible' })
+    await button.click()
   }
 
   async addMultipleItemsToCart(indices) {
@@ -68,4 +70,4 @@ export default class ProductsPage {
     return await this.itemTitle.allTextContents()
   }
 }
-module.exports = ProductsPage;
+module.exports = ProductsPage
