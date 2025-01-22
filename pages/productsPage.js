@@ -1,7 +1,7 @@
 export default class ProductsPage {
   constructor(page) {
     this.page = page
-    //this.itemTitle = page.locator('.inventory_item_name')
+    this.itemTitle = page.locator('.inventory_item_name')
     this.sortContainer = page.locator('[data-test="product-sort-container"]')
     this.itemPrice = page.locator('.inventory_item_price ')
     this.buttonAddToCart = page.getByRole('button', { name: 'Add to cart' })
@@ -10,7 +10,10 @@ export default class ProductsPage {
   }
 
   async scrollToTop() {
-    await this.page.evaluate(() => window.scrollTo(0, 0))
+    await this.page.waitForLoadState('domcontentloaded')
+    await this.page.evaluate(() => {
+      window.scrollTo(0, 0);
+    });
   }
 
   async goto(url) {
