@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { ProductsPage } from '../pages/productsPage'
+import ProductsPage from '../pages/productsPage'
 
 test('Sort items by name Z-A', async ({ page }) => {
   const productsPage = new ProductsPage(page)
@@ -11,9 +11,9 @@ test('Sort items by name Z-A', async ({ page }) => {
   const itemTitle = await page.locator('.inventory_item_name').allTextContents()
   console.log('Product Titles:', itemTitle)
 
-  const productNames = await productsPage.getProductNames()
-  console.log(productNames)
-  const sortedNames = [...productNames].sort((a, b) => b.localeCompare(a))
-  expect(productNames).toEqual(sortedNames)
+  const productsNames = await productsPage.getProductNames()
+  console.log(productsNames)
+  const sortedNames = [...productsNames].sort((a, b) => b.localeCompare(a))
+  expect(productsNames).toEqual(sortedNames)
   console.log('Successful sort "ZA')
 })
