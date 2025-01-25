@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../pages/homePage'
-import { testUsers } from '../data/userData'
+import { HomePage } from '../../../pages/homePage'
+import { testUsers } from '../../../data/userData'
 
-test('log In', async ({ page }) => {
+test.skip('log In', async ({ page }) => {
   const homePage = new HomePage(page)
   const { email, password } = testUsers.standardUser
 

@@ -4,7 +4,7 @@ export default class ProductsPage {
     this.itemTitle = page.locator('.inventory_item_name')
     this.sortContainer = page.locator('[data-test="product-sort-container"]')
     this.itemPrice = page.locator('.inventory_item_price ')
-    this.buttonAddToCart = page.getByRole('button', { name: 'Add to cart' })
+    this.buttonAddToCart = page.locator('.pricebar .btn_inventory')
     this.cartWithItems = page.locator('.shopping_cart_badge')
     this.removeFromCart = page.getByRole('button', { name: 'Remove' }).nth(1)
   }
@@ -18,13 +18,15 @@ export default class ProductsPage {
     await this.page.goto(url)
   }
 
-  async addToCartByIndex(index) {
-    const button = this.buttonAddToCart.nth(index)
-    await this.scrollToTop()
-    await button.scrollIntoViewIfNeeded()
+  async addToCartByIndex() {
+    // const button = this.buttonAddToCart.nth(index)
+    // await this.scrollToTop()
+    // await button.scrollIntoViewIfNeeded()
+    //
+    // await button.waitFor({ state: 'visible' })
+    // await button.click()
 
-    await button.waitFor({ state: 'visible' })
-    await button.click()
+    await this.buttonAddToCart.click()
   }
 
   async addMultipleItemsToCart(indices) {
